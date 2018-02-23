@@ -9,6 +9,7 @@ router.get('/',function(req,res,next){
             res.send(err.message);
             return;
         }
+        console.log(list[0].createdAt.toLocaleString())
         res.send(list);
     })
 })

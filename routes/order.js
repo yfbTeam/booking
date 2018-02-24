@@ -6,7 +6,7 @@ var model = require('../models/index');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    orderModel.getList({isDeleted:0},function (err,list) {
+    orderModel.getList({isDeleted:false},function (err,list) {
         if(err){
             res.send(err.message);
             return;
@@ -44,7 +44,7 @@ router.put('/:id',function(req,res,next){
 })
 router.delete("/:id",function(req,res,next){
     model.editModal(Order,{_id:req.params.id},{
-        isDelete:1
+        isDelete:true
     },function(err,doc){
         if(err){
             res.send(err.message);

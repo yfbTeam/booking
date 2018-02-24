@@ -9,7 +9,7 @@ var userSchema = new mongoose.Schema({
     }],
     createdAt: {type: Date, default: Date.now },
     updatedAt:Date,
-    isDeleted:{type:Number,default:0}
+    isDeleted:{type:Boolean,default:false}
 })
 
 var User = mongoose.model("User",userSchema);

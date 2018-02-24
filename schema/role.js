@@ -4,7 +4,7 @@ var orderSchema = new mongoose.Schema({
     name:String,
     createdAt: {type: Date, default: Date.now },
     updatedAt:Date,
-    isDeleted:{type:Number,default:0}
+    isDeleted:{type:Boolean,default:false}
 })
 
 var Role = mongoose.model("Role",orderSchema);

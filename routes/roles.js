@@ -4,7 +4,7 @@ var Role = require('../schema/role');
 var model = require('../models/index')
 
 router.get('/',function(req,res,next){
-    model.getList(Role,{isDeleted:0},function (err,list) {
+    model.getList(Role,{isDeleted:false},function (err,list) {
         if(err){
             res.send(err.message);
             return;
@@ -42,7 +42,7 @@ router.put('/:id',function(req,res,next){
 })
 router.delete("/:id",function(req,res,next){
     model.editModal(Role,{_id:req.params.id},{
-        isDeleted:1
+        isDeleted:true
     },function(err,doc){
         if(err){
             res.send(err.message);

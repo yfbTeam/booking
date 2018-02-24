@@ -117,7 +117,7 @@ router.get("/checkLogin", function (req,res,next) {
 });
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    userModel.getList({isDeleted:0},function (err,list) {
+    userModel.getList({isDeleted:false},function (err,list) {
         if(err){
           res.send(err.message);
           return;
@@ -155,7 +155,7 @@ router.put('/:id',function(req,res,next){
 })
 router.delete("/:id",function(req,res,next){
     model.editModal(user,{_id:req.params.id},{
-        isDelete:1
+        isDelete:true
     },function(err,doc){
         if(err){
             res.send(err.message);

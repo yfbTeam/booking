@@ -5,7 +5,7 @@ var model = require('../models/index')
 
 router.get('/',function(req,res,next){
     router.get('/',function(req,res,next){
-        model.getList(Price,{isDeleted:0},function (err,list) {
+        model.getList(Price,{isDeleted:false},function (err,list) {
             if(err){
                 res.send(err.message);
                 return;

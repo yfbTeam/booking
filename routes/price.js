@@ -21,7 +21,7 @@ router.put('/:id',function(req,res,next){
             res.send(err.message);
             return;
         }
-        res.send('edit success!');
+        res.send(doc);
     })
 })
 module.exports = router;

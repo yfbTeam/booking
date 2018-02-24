@@ -131,7 +131,7 @@ router.post('/',function(req,res,next){
             res.send(err.message);
             return;
         }
-        res.send('add success!');
+        res.send(doc);
     })
 })
 router.get('/:id',function(req,res,next){

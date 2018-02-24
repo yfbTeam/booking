@@ -31,6 +31,12 @@ export default class SiderBar extends React.Component{
                         <span>用户管理</span>
                         </NavLink>
                     </Menu.Item>
+                    <Menu.Item key="3">
+                        <NavLink to="/roles">
+                            <Icon type="bars" />
+                            <span>角色管理</span>
+                        </NavLink>
+                    </Menu.Item>
                 </Menu>
             </Sider>
         )

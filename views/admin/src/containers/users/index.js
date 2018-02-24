@@ -1,6 +1,5 @@
 import React from  'react';
-import axios from 'axios';
-import {host} from '../../config'
+
 import SiderBar from '../../components/sider'
 import { Layout, Breadcrumb  } from 'antd';
 const {Content,Header} = Layout;

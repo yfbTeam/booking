@@ -11,7 +11,7 @@ module.exports = {
     },
     addModal:function(schema,params,callback){
         schema.create(params,function(err,item){
-            callback(err,list)
+            callback(err,item)
         });
     },
     editModal:function(schema,params1,params2,callback){

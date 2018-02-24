@@ -9,17 +9,16 @@ router.get('/',function(req,res,next){
             res.send(err.message);
             return;
         }
-        console.log(list[0].createdAt.toLocaleString())
         res.send(list);
     })
 })
 router.post('/',function(req,res,next){
     model.addModal(Role,req.body,function(err,doc){
-        if(err){
+        if(err) {
             res.send(err.message);
             return;
         }
-        res.send('add success!');
+        res.send(doc);
     })
 })
 router.get('/:id',function(req,res,next){
@@ -43,13 +42,13 @@ router.put('/:id',function(req,res,next){
 })
 router.delete("/:id",function(req,res,next){
     model.editModal(Role,{_id:req.params.id},{
-        isDelete:1
+        isDeleted:1
     },function(err,doc){
         if(err){
             res.send(err.message);
             return;
         }
-        res.send('delete success!');
+        res.send("delete success!");
     })
 })
 module.exports = router;

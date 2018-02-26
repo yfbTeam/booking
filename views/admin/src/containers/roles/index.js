@@ -36,7 +36,10 @@ export default class Users extends React.Component{
                         <Button type="danger"  onClick={(e)=>{this.handleDelete(item._id)}}>删除</Button>
                     </span>
                 )
-            }]
+            }],
+            pagination:{
+                hideOnSinglePage:true
+            }
         }
     }
     render(){
@@ -50,7 +53,7 @@ export default class Users extends React.Component{
                             <Header style={{ background: '#fff', padding: 16,marginBottom:'16px',lineHeight:'32px' }} >角色管理</Header>
                             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                                 <Button type="primary" style={{marginBottom:"16px"}} onClick={this.showModal}>增加</Button>
-                                <Table columns={this.state.columns} dataSource={this.state.list} pagination={false}/>
+                                <Table columns={this.state.columns} dataSource={this.state.list} pagination={this.state.pagination}/>
                                 <Modal
                                     title="新增角色"
                                     visible={this.state.visible}

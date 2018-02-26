@@ -154,14 +154,14 @@ router.put('/:id',function(req,res,next){
     })
 })
 router.delete("/:id",function(req,res,next){
-    model.editModal(user,{_id:req.params.id},{
-        isDelete:true
+    model.editModal(User,{_id:req.params.id},{
+        isDeleted:true
     },function(err,doc){
         if(err){
             res.send(err.message);
             return;
         }
-        res.send('delete success!');
+        res.send("delete success!");
     })
 })
 module.exports = router;

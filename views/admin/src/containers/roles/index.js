@@ -164,6 +164,15 @@ export default class Users extends React.Component{
             visible: true,
         });
     }
+    fetch = ()=>{
+        getList(roleService,(res)=>{
+            this.setState({
+                list:res
+            })
+        },(err)=>{
+            console.log(err)
+        })
+    }
     handleOk = (e) => {
        Add(roleService,{name:this.state.name},(res)=>{
            var list = this.state.list

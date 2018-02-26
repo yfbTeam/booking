@@ -6,7 +6,9 @@ export function getList(service,successCb,errorCb){
         errorCb(err);
     })
 }
+export function getOne(service,successCb,errorCb){
 
+}
 export function Edit(service,body,successCb,errorCb){
     axios.put(service,body||{}).then((res)=>{
         successCb(res.data);

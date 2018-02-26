@@ -179,15 +179,21 @@ export default class Users extends React.Component{
 
     }
     handleOk = (e) => {
+        var that = this;
         Add(userService,{name:this.state.name,role:this.state.value},(res)=>{
-            var list = this.state.list;
-            console.log(res);
-            
-            list.push(res);
-            this.setState({
-                list:list,
-                visible: false,
-                name:''
+            var list = that.state.list;
+
+            getList(roleService+`/${res.role}`,function(res1){
+
+                res.role = res1;
+                list.push(res);
+                that.setState({
+                    list:list,
+                    visible: false,
+                    name:''
+                })
+            },function(err){
+                console.log(err)
             })
         },(err)=>{
             console.log(err);

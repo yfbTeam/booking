@@ -1,8 +1,9 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var userSchema = new mongoose.Schema({
+    nickName:String,
     name:String,
-    paddword:String,
+    password:String,
     role:{
         type:Schema.Types.ObjectId,
         ref:"Role"

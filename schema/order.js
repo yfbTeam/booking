@@ -9,10 +9,10 @@ var orderSchema = new mongoose.Schema({
         type:Schema.Types.ObjectId,
         ref:"Price"
     },
-    /*user:[{
+    user:{
         type:Schema.Types.ObjectId,
         ref:"User"
-    }],*/
+    },
     phone:Number,
     address:String,
     createdAt: {type: Date, default: Date.now },

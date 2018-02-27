@@ -1,5 +1,6 @@
 import React from  'react';
 import moment from 'moment'
+import Cookies from 'js-cookie';
 import SiderBar from '../../components/sider'
 import {roleService,userService} from '../../api/index';
 import {getList, Add, Edit, Delete} from '../../api/api';
@@ -242,7 +243,7 @@ export default class Users extends React.Component{
     }
     handleOk = (e) => {
         var that = this;
-        Add(orderService,{goTime:this.state.date,phone:this.state.phone,address:this.state.address,peopleNum:this.state.num,price:this.state.price._id},(res)=>{
+        Add(orderService,{goTime:this.state.date,phone:this.state.phone,address:this.state.address,peopleNum:this.state.num,price:this.state.price._id,user:Cookies.get("userId").replace("j:\"",'').replace("\"",'')},(res)=>{
             var list = that.state.list;
             res.price = that.state.price
             list.push(res);
@@ -273,6 +274,7 @@ export default class Users extends React.Component{
         })
     }
     fetch = ()=>{
+        var userId = Cookies.get("userId").replace("j:\"",'').replace("\"",'');
         getList(orderService,(res)=>{
             this.setState({
                 list:res

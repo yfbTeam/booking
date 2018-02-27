@@ -180,7 +180,7 @@ export default class Users extends React.Component{
     }
     handleOk = (e) => {
         var that = this;
-        Add(userService,{name:this.state.name,role:this.state.value},(res)=>{
+        Add(userService,{name:this.state.name,role:this.state.value,password:'123456'},(res)=>{
             var list = that.state.list;
 
             getList(roleService+`/${res.role}`,function(res1){

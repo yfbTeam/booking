@@ -1,4 +1,5 @@
 var express = require('express');
+var pinyin = require('pinyin');
 var router = express.Router();
 var User = require('../schema/user');
 var userModel = require('../models/user')
@@ -6,32 +7,42 @@ var model = require('../models/index');
 var crypto = require('crypto');
 //login
 router.post('/login',function(req,res,next){
-    var userName = req.body.userName;
-    var userPwd = req.body.userPwd;
+    console.log(req.body)
+    var userName = req.body.name;
+    var userPwd = req.body.password;
     var md5 = crypto.createHash("md5");
     var newPas = md5.update(userPwd).digest("hex");
-    User.findOne({name:userName,password:newPas},function(err,doc){
+    User.findOne({nickName:userName,password:newPas,isDeleted:false},function(err,doc){
       if(err){
         res.send(err.message);
         return
       }
-      res.cookie("roleName",doc.role,{
-          path:'/',
-          maxAge:1000*60*60
+      res.cookie("nickName",doc.nickName,{
+        path:'/',
+        maxAge:1000*60*60
       });
-      res.cookie("userName",doc.name,{
-          path:'/',
-          maxAge:1000*60*60
+    res.cookie("name",doc.name,{
+        path:'/',
+        maxAge:1000*60*60
+    });
+    res.cookie("roleId",doc.role,{
+        path:'/',
+        maxAge:1000*60*60
+    });
+    res.cookie('userId',doc._id,{
+        path:'/',
+        maxAge:1000*60*60
+    })
+      res.send({
+          nickName:doc.nickName,
+          name:doc.name,
+          roleId:doc.role,
+          userId:doc._id
       });
-      res.json({
-          result:{
-              userName:doc.name,
-              roleName:doc.role
-          }
-      });
+
     })
 })
-//register
+/*//register
 router.post('/register',function(req,res,next){
     var userName = req.body.userName,userPwd = req.body.userPwd;
     var md5 = crypto.createHash("md5");
@@ -114,7 +125,7 @@ router.get("/checkLogin", function (req,res,next) {
             result:''
         });
     }
-});
+});*/
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     userModel.getList({isDeleted:false},function (err,list) {
@@ -126,7 +137,11 @@ router.get('/', function(req, res, next) {
     })
 });
 router.post('/',function(req,res,next){
-    model.addModal(User,req.body,function(err,doc){
+    var md5 = crypto.createHash("md5");
+    req.body.password = md5.update(req.body.password).digest("hex");
+    var nickName = pinyin(req.body.name,{style:pinyin.STYLE_NORMAL}).join(',').replace(/\,+/,'');
+    var body = Object.assign({},req.body,{nickName:nickName});
+    model.addModal(User,body,function(err,doc){
         if(err){
             res.send(err.message);
             return;

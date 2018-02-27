@@ -1,5 +1,5 @@
 var express = require('express');
-var moment  = require('moment')
+var moment  = require('moment');
 var router = express.Router();
 var Order = require('../schema/order');
 var orderModel = require('../models/order')

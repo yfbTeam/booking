@@ -275,7 +275,7 @@ export default class Users extends React.Component{
     }
     fetch = ()=>{
         var userId = Cookies.get("userId").replace("j:\"",'').replace("\"",'');
-        getList(orderService,(res)=>{
+        getList(orderService+`?userId=${userId}`,(res)=>{
             this.setState({
                 list:res
             })

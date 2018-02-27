@@ -190,7 +190,8 @@ export default class Users extends React.Component{
                 that.setState({
                     list:list,
                     visible: false,
-                    name:''
+                    name:'',
+                    value:that.state.roleList[0]._id
                 })
             },function(err){
                 console.log(err)

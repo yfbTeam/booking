@@ -3,16 +3,16 @@ var mongoose = require("mongoose");
 var Schema = mongoose.Schema;
 
 var orderSchema = new mongoose.Schema({
-    goTime:String,
+    goTime:Date,
     peopleNum:Number,
-    price:[{
+    price:{
         type:Schema.Types.ObjectId,
         ref:"Price"
-    }],
-    user:[{
+    },
+    /*user:[{
         type:Schema.Types.ObjectId,
         ref:"User"
-    }],
+    }],*/
     phone:Number,
     address:String,
     createdAt: {type: Date, default: Date.now },

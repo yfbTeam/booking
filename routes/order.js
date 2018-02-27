@@ -1,4 +1,5 @@
 var express = require('express');
+var moment  = require('moment')
 var router = express.Router();
 var Order = require('../schema/order');
 var orderModel = require('../models/order')
@@ -11,11 +12,13 @@ router.get('/', function(req, res, next) {
             res.send(err.message);
             return;
         }
+        //console.log(moment(list[0]).goTime.format('YYYY-MM-DD'))
         res.send(list);
     })
 });
 router.post('/',function(req,res,next){
     model.addModal(Order,req.body,function(err,doc){
+        console.log(doc)
         if(err){
             res.send(err.message);
             return;
@@ -34,7 +37,7 @@ router.get('/:id',function(req,res,next){
 })
 router.put('/:id',function(req,res,next){
     var data = Object.assign({},req.body,{updatedAt:new Date()});
-    model.editModal(User,{_id:req.params.id},data,function(err,doc){
+    model.editModal(Order,{_id:req.params.id},data,function(err,doc){
         if(err){
             res.send(err.message);
             return;
@@ -44,13 +47,13 @@ router.put('/:id',function(req,res,next){
 })
 router.delete("/:id",function(req,res,next){
     model.editModal(Order,{_id:req.params.id},{
-        isDelete:true
+        isDeleted:true
     },function(err,doc){
         if(err){
             res.send(err.message);
             return;
         }
-        res.send('delete success!');
+        res.send("delete success!");
     })
 })
 module.exports = router;

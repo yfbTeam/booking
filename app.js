@@ -12,7 +12,15 @@ var roles = require('./routes/roles');
 var order = require('./routes/order');
 var price = require('./routes/price');
 var app = express();
-
+app.all('*', function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", 'http://localhost:3000'); //需要显示设置来源
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Credentials",true); //带cookies
+    res.header("X-Powered-By",' 3.2.1')
+    res.header("Content-Type", "application/json;charset=utf-8");
+    next();
+});
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -24,20 +32,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-var whitelist = ['http://localhost:3001','http://localhost:3000']
-var corsOptions = {
-    origin: function (origin, callback) {
-        if (whitelist.indexOf(origin) !== -1) {
-            callback(null, true)
-        } else {
-            callback(new Error('Not allowed by CORS'))
-        }
-    },
-    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-    credentials:true
-}
-
-app.use(cors(corsOptions));
 
 app.use('/', index);
 app.use('/users', users);

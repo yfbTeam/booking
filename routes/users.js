@@ -39,10 +39,9 @@ router.post('/login',function(req,res,next){
           roleId:doc.role,
           userId:doc._id
       });
-
     })
 })
-/*//register
+//register
 router.post('/register',function(req,res,next){
     var userName = req.body.userName,userPwd = req.body.userPwd;
     var md5 = crypto.createHash("md5");
@@ -69,19 +68,27 @@ router.post('/register',function(req,res,next){
                     res.send(err.message);
                     return;
                 }
-                res.cookie("roleName",doc2.role,{
+                res.cookie("nickName",doc.nickName,{
                     path:'/',
                     maxAge:1000*60*60
                 });
-                res.cookie("userName",doc2.name,{
+                res.cookie("name",doc.name,{
                     path:'/',
                     maxAge:1000*60*60
                 });
-                res.json({
-                    result:{
-                        userName:doc2.name,
-                        roleName:doc2.role
-                    }
+                res.cookie("roleId",doc.role,{
+                    path:'/',
+                    maxAge:1000*60*60
+                });
+                res.cookie('userId',doc._id,{
+                    path:'/',
+                    maxAge:1000*60*60
+                })
+                res.send({
+                    nickName:doc.nickName,
+                    name:doc.name,
+                    roleId:doc.role,
+                    userId:doc._id
                 });
             })
         }
@@ -90,14 +97,22 @@ router.post('/register',function(req,res,next){
 })
 //登出接口
 router.post("/logout", function (req,res,next) {
-    res.cookie("roleName","",{
-        path:"/",
-        maxAge:-1
+    res.cookie("nickName",'',{
+        path:'/',
+        maxAge:1000*60*60
     });
-    res.cookie("userName","",{
-        path:"/",
-        maxAge:-1
+    res.cookie("name",'',{
+        path:'/',
+        maxAge:1000*60*60
     });
+    res.cookie("roleId",'',{
+        path:'/',
+        maxAge:1000*60*60
+    });
+    res.cookie('userId','',{
+        path:'/',
+        maxAge:1000*60*60
+    })
     res.json({
         status:"0",
         msg:'',
@@ -106,17 +121,29 @@ router.post("/logout", function (req,res,next) {
 });
 // 检查登录状态cookies
 router.get("/checkLogin", function (req,res,next) {
-    if(req.cookies.userName){
+    if(req.cookies.nickName){
         res.json({
             status:'0',
             msg:'',
-            result:req.cookies.userName || ''
+            result:req.cookies.nickName || ''
         });
-    }else if(req.cookies.roleName){
+    }else if(req.cookies.name){
         res.json({
             status:'1',
             msg:'',
-            result:req.cookies.roleName || ''
+            result:req.cookies.name || ''
+        });
+    }else if(req.cookies.roleId){
+        res.json({
+            status:'1',
+            msg:'',
+            result:req.cookies.roleId || ''
+        });
+    }else if(req.cookies.userId){
+        res.json({
+            status:'1',
+            msg:'',
+            result:req.cookies.userId || ''
         });
     }else{
         res.json({
@@ -125,7 +152,7 @@ router.get("/checkLogin", function (req,res,next) {
             result:''
         });
     }
-});*/
+});
 /* GET users listing. */
 router.get('/', function(req, res, next) {
     userModel.getList({isDeleted:false},function (err,list) {

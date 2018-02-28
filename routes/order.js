@@ -1,5 +1,4 @@
 var express = require('express');
-var moment  = require('moment');
 var router = express.Router();
 var Order = require('../schema/order');
 var User = require('../schema/user')
@@ -11,7 +10,6 @@ router.get('/', function(req, res, next) {
     model.getOne(User,{_id:req.param("userId")},function(err,list){
         var roleId = list.role;
         if(roleId=='5a9123efa43cec2690b0ad05'){
-            console.log(1)
             body ={isDeleted:false};
         }else{
             body = {user:req.param("userId"),isDeleted:false}

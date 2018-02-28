@@ -37,3 +37,17 @@ export function LoginFun(service,body,successCb,errorCb){
         errorCb(err);
     })
 }
+export function CheckLogin(service,successCb,errorCb){
+    axios.get(service+'/checkLogin').then((res)=>{
+        successCb(res.data);
+    }).catch(err=>{
+        errorCb(err);
+    })
+}
+export function LogOut(service,successCb,errorCb){
+    axios.get(service+'/logout').then((res)=>{
+        successCb(res.data);
+    }).catch(err=>{
+        errorCb(err);
+    })
+}

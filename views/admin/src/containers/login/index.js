@@ -1,9 +1,10 @@
 import React from 'react';
+import ReactDOM from 'react-dom'
+import App from '../../App'
 import './index.css'
 import { Form, Icon, Input, Button, Checkbox,Row, Col } from 'antd';
 import {userService} from "../../api";
 import {LoginFun} from "../../api/api";
-
 const FormItem = Form.Item;
 
 class LoginForm extends React.Component {
@@ -14,7 +15,11 @@ class LoginForm extends React.Component {
             if (!err) {
                 console.log('Received values of form: ', values);
                 LoginFun(userService,{name:values.userName,password:values.password},function(res){
-
+                    ReactDOM.unmountComponentAtNode(document.getElementById('root'))
+                    ReactDOM.render(
+                        <App />,
+                        document.getElementById('root')
+                    )
                 },function(err){
                     console.log(err)
                 })
@@ -55,7 +60,7 @@ class LoginForm extends React.Component {
                     </Button>
                     </div>
                     <div>
-                    <a href="/register">注册</a>
+
                     </div>
                 </FormItem>
             </Form>

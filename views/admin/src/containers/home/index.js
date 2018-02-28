@@ -1,6 +1,6 @@
 import React from  'react';
 import './index.css';
-import SiderBar from '../../components/sider'
+import SiderBar from '../../components/common'
 import { Layout, Breadcrumb } from 'antd';
 const {Content} = Layout;
 

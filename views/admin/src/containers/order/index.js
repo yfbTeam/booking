@@ -1,7 +1,7 @@
 import React from  'react';
 import moment from 'moment'
 import Cookies from 'js-cookie';
-import SiderBar from '../../components/sider'
+import Common from '../../components/common'
 import {roleService,userService} from '../../api/index';
 import {getList, Add, Edit, Delete} from '../../api/api';
 import { Layout, Breadcrumb,Table,Button,Modal,Input,Form ,message,Radio,DatePicker  } from 'antd';
@@ -66,115 +66,107 @@ export default class Users extends React.Component{
     }
     render(){
         return(
-            <div>
-                <Layout style={{ minHeight: '100vh' }}>
-                    <SiderBar />
-                    <Layout>
+            <Common>
+                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >订单管理</Header>
+                        <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                        <Button type="primary" style={{marginBottom:"16px"}} onClick={this.showModal}>增加</Button>
+                        <Table columns={this.state.columns} dataSource={this.state.list} pagination={this.state.pagination}/>
+                        <Modal
+                            title="新增订单"
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                            okText="确定"
+                            cancelText="取消"
+                        >
+                            <Form>
+                                <FormItem
+                                    label='电话'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
 
-                        <Content style={{ margin: '16px' }}>
-                            <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >订单管理</Header>
-                                <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Button type="primary" style={{marginBottom:"16px"}} onClick={this.showModal}>增加</Button>
-                                <Table columns={this.state.columns} dataSource={this.state.list} pagination={this.state.pagination}/>
-                                <Modal
-                                    title="新增订单"
-                                    visible={this.state.visible}
-                                    onOk={this.handleOk}
-                                    onCancel={this.handleCancel}
-                                    okText="确定"
-                                    cancelText="取消"
                                 >
-                                    <Form>
-                                        <FormItem
-                                            label='电话'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-
-                                        >
-                                            <Input placeholder="请输入电话号" onChange={this.handlePhoneChange} type="number"/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='出发时间'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <DatePicker onChange={this.changeGoTime} format={'YYYY-MM-DD'}/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='人数'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <Input placeholder="请输入人数" onChange={this.handleNumChange} type="number"/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='票价'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <span>{this.state.price.price}</span>
-                                        </FormItem>
-                                        <FormItem
-                                            label='地址'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <Input placeholder="请输入详细地址" onChange={this.handleAddressChange}/>
-                                        </FormItem>
-                                    </Form>
-                                </Modal>
-                                <Modal
-                                    title="编辑订单"
-                                    visible={this.state.visible1}
-                                    onOk={this.handleOk}
-                                    onCancel={this.handleCancel}
-                                    okText="确定"
-                                    cancelText="取消"
+                                    <Input placeholder="请输入电话号" onChange={this.handlePhoneChange} type="number"/>
+                                </FormItem>
+                                <FormItem
+                                    label='出发时间'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
                                 >
-                                    <Form>
-                                        <FormItem
-                                            label='电话'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
+                                    <DatePicker onChange={this.changeGoTime} format={'YYYY-MM-DD'}/>
+                                </FormItem>
+                                <FormItem
+                                    label='人数'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <Input placeholder="请输入人数" onChange={this.handleNumChange} type="number"/>
+                                </FormItem>
+                                <FormItem
+                                    label='票价'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <span>{this.state.price.price}</span>
+                                </FormItem>
+                                <FormItem
+                                    label='地址'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <Input placeholder="请输入详细地址" onChange={this.handleAddressChange}/>
+                                </FormItem>
+                            </Form>
+                        </Modal>
+                        <Modal
+                            title="编辑订单"
+                            visible={this.state.visible1}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                            okText="确定"
+                            cancelText="取消"
+                        >
+                            <Form>
+                                <FormItem
+                                    label='电话'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
 
-                                        >
-                                            <Input placeholder="请输入电话号" onChange={this.handlePhoneChange} type="number" value={this.state.phone}/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='出发时间'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <DatePicker onChange={this.changeGoTime} defaultValue={moment(this.state.date, 'YYYY-MM-DD')} format={'YYYY-MM-DD'}/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='人数'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <Input placeholder="请输入人数" onChange={this.handleNumChange} type="number" value={this.state.num}/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='票价'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <span>{this.state.price.price}</span>
-                                        </FormItem>
-                                        <FormItem
-                                            label='地址'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <Input placeholder="请输入详细地址" onChange={this.handleAddressChange} value={this.state.address}/>
-                                        </FormItem>
-                                    </Form>
-                                </Modal>
-                            </div>
-                        </Content>
-                    </Layout>
-                </Layout>
-            </div>
+                                >
+                                    <Input placeholder="请输入电话号" onChange={this.handlePhoneChange} type="number" value={this.state.phone}/>
+                                </FormItem>
+                                <FormItem
+                                    label='出发时间'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <DatePicker onChange={this.changeGoTime} defaultValue={moment(this.state.date, 'YYYY-MM-DD')} format={'YYYY-MM-DD'}/>
+                                </FormItem>
+                                <FormItem
+                                    label='人数'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <Input placeholder="请输入人数" onChange={this.handleNumChange} type="number" value={this.state.num}/>
+                                </FormItem>
+                                <FormItem
+                                    label='票价'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <span>{this.state.price.price}</span>
+                                </FormItem>
+                                <FormItem
+                                    label='地址'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <Input placeholder="请输入详细地址" onChange={this.handleAddressChange} value={this.state.address}/>
+                                </FormItem>
+                            </Form>
+                        </Modal>
+                    </div>
+            </Common>
         )
     }
     changeGoTime = (date,dateString)=>{

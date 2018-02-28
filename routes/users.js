@@ -96,7 +96,7 @@ router.post('/register',function(req,res,next){
 
 })
 //登出接口
-router.post("/logout", function (req,res,next) {
+router.get("/logout", function (req,res,next) {
     res.cookie("nickName",'',{
         path:'/',
         maxAge:1000*60*60
@@ -121,29 +121,16 @@ router.post("/logout", function (req,res,next) {
 });
 // 检查登录状态cookies
 router.get("/checkLogin", function (req,res,next) {
-    if(req.cookies.nickName){
-        res.json({
-            status:'0',
-            msg:'',
-            result:req.cookies.nickName || ''
-        });
-    }else if(req.cookies.name){
+    if(req.cookies.nickName&&req.cookies.name&&req.cookies.roleId&&req.cookies.userId){
         res.json({
             status:'1',
             msg:'',
-            result:req.cookies.name || ''
-        });
-    }else if(req.cookies.roleId){
-        res.json({
-            status:'1',
-            msg:'',
-            result:req.cookies.roleId || ''
-        });
-    }else if(req.cookies.userId){
-        res.json({
-            status:'1',
-            msg:'',
-            result:req.cookies.userId || ''
+            result:{
+                nickName:req.cookies.nickName,
+                name:req.cookies.name,
+                roleId:req.cookies.roleId,
+                userId:req.cookies.userId
+            }
         });
     }else{
         res.json({

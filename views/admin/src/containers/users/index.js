@@ -1,6 +1,6 @@
 import React from  'react';
 
-import SiderBar from '../../components/sider'
+import Common from '../../components/common'
 import {userService,roleService} from '../../api/index';
 import {getList, Add, Edit, Delete} from '../../api/api';
 import { Layout, Breadcrumb,Table,Button,Modal,Input,Form ,message,Radio } from 'antd';
@@ -56,75 +56,69 @@ export default class Users extends React.Component{
         })
         return(
             <div>
-                <Layout style={{ minHeight: '100vh' }}>
-                    <SiderBar />
-                    <Layout>
+                <Common>
+                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >用户管理</Header>
+                    <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                        <Button type="primary" style={{marginBottom:"16px"}} onClick={this.showModal}>增加</Button>
+                        <Table columns={this.state.columns} dataSource={this.state.list} pagination={this.state.pagination}/>
+                        <Modal
+                            title="新增用户"
+                            visible={this.state.visible}
+                            onOk={this.handleOk}
+                            onCancel={this.handleCancel}
+                            okText="确定"
+                            cancelText="取消"
+                        >
+                            <Form>
+                                <FormItem
+                                    label='用户名称'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
 
-                        <Content style={{ margin: '16px' }}>
-                            <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >用户管理</Header>
-                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Button type="primary" style={{marginBottom:"16px"}} onClick={this.showModal}>增加</Button>
-                                <Table columns={this.state.columns} dataSource={this.state.list} pagination={this.state.pagination}/>
-                                <Modal
-                                    title="新增用户"
-                                    visible={this.state.visible}
-                                    onOk={this.handleOk}
-                                    onCancel={this.handleCancel}
-                                    okText="确定"
-                                    cancelText="取消"
                                 >
-                                    <Form>
-                                        <FormItem
-                                            label='用户名称'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-
-                                        >
-                                            <Input placeholder="请输入用户名称" onChange={this.handleChange}/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='角色'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <RadioGroup onChange={this.onChange} value={this.state.value}>
-                                                {nodes}
-                                            </RadioGroup>
-                                        </FormItem>
-                                    </Form>
-                                </Modal>
-                                <Modal
-                                    title="编辑角色"
-                                    visible={this.state.visible1}
-                                    onOk={this.editOk}
-                                    onCancel={this.handleCancel}
-                                    okText="确定"
-                                    cancelText="取消"
+                                    <Input placeholder="请输入用户名称" onChange={this.handleChange}/>
+                                </FormItem>
+                                <FormItem
+                                    label='角色'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
                                 >
-                                    <Form>
-                                        <FormItem
-                                            label='用户名称'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
+                                    <RadioGroup onChange={this.onChange} value={this.state.value}>
+                                        {nodes}
+                                    </RadioGroup>
+                                </FormItem>
+                            </Form>
+                        </Modal>
+                        <Modal
+                            title="编辑角色"
+                            visible={this.state.visible1}
+                            onOk={this.editOk}
+                            onCancel={this.handleCancel}
+                            okText="确定"
+                            cancelText="取消"
+                        >
+                            <Form>
+                                <FormItem
+                                    label='用户名称'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
 
-                                        >
-                                            <Input placeholder="请输入用户名称" onChange={this.handleChange} value={this.state.name}/>
-                                        </FormItem>
-                                        <FormItem
-                                            label='角色'
-                                            labelCol={{ span: 4 }}
-                                            wrapperCol={{ span:18 }}
-                                        >
-                                            <RadioGroup onChange={this.onChange} value={this.state.value}>
-                                                {nodes}
-                                            </RadioGroup>
-                                        </FormItem>
-                                    </Form>
-                                </Modal>
-                            </div>
-                        </Content>
-                    </Layout>
-                </Layout>
+                                >
+                                    <Input placeholder="请输入用户名称" onChange={this.handleChange} value={this.state.name}/>
+                                </FormItem>
+                                <FormItem
+                                    label='角色'
+                                    labelCol={{ span: 4 }}
+                                    wrapperCol={{ span:18 }}
+                                >
+                                    <RadioGroup onChange={this.onChange} value={this.state.value}>
+                                        {nodes}
+                                    </RadioGroup>
+                                </FormItem>
+                            </Form>
+                        </Modal>
+                    </div>
+                </Common>
             </div>
         )
     }

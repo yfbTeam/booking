@@ -1,5 +1,5 @@
 import React from 'react';
-import SiderBar from '../../components/sider'
+import Common from '../../components/common'
 import {priceService} from '../../api/index';
 import {getList, Add, Edit, Delete} from '../../api/api';
 import { Layout, Breadcrumb,Table,Button,Modal,Input,Form ,message } from 'antd';
@@ -19,34 +19,26 @@ export default class Price extends React.Component{
     }
     render(){
         return(
-            <div>
-                <Layout style={{ minHeight: '100vh' }}>
-                    <SiderBar />
-                    <Layout>
+               <Common>
+                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >票价管理</Header>
+                    <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
+                        <Form onSubmit={this.handleSubmit}>
+                            <FormItem
+                                label='票价'
+                                labelCol={{ span: 2 }}
+                                wrapperCol={{ span:6 }}
 
-                        <Content style={{ margin: '16px' }}>
-                            <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >票价管理</Header>
-                            <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
-                                <Form onSubmit={this.handleSubmit}>
-                                    <FormItem
-                                        label='票价'
-                                        labelCol={{ span: 2 }}
-                                        wrapperCol={{ span:6 }}
-
-                                    >
-                                        <Input placeholder="请输入票价" onChange={this.handleChange} type="number" value={this.state.price}/>
-                                    </FormItem>
-                                    <FormItem>
-                                        <Button type="primary" htmlType="submit" className="login-form-button" style={{marginLeft:'8.33333333%'}}>
-                                           保存
-                                        </Button>
-                                    </FormItem>
-                                </Form>
-                            </div>
-                        </Content>
-                    </Layout>
-                </Layout>
-            </div>
+                            >
+                                <Input placeholder="请输入票价" onChange={this.handleChange} type="number" value={this.state.price}/>
+                            </FormItem>
+                            <FormItem>
+                                <Button type="primary" htmlType="submit" className="login-form-button" style={{marginLeft:'8.33333333%'}}>
+                                   保存
+                                </Button>
+                            </FormItem>
+                        </Form>
+                    </div>
+               </Common>
         )
     }
     handleChange = (e)=>{

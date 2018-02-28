@@ -4,7 +4,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var cors = require('cors');
 var db = require("./config/index");
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -12,14 +11,17 @@ var roles = require('./routes/roles');
 var order = require('./routes/order');
 var price = require('./routes/price');
 var app = express();
-app.all('*', function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", 'http://localhost:3000'); //需要显示设置来源
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
-    res.header("Access-Control-Allow-Credentials",true); //带cookies
-    res.header("X-Powered-By",' 3.2.1')
-    res.header("Content-Type", "application/json;charset=utf-8");
-    next();
+app.all('*', (req, res, next) => {
+    res.header("Access-Control-Allow-Origin", req.headers.origin || '*');
+    res.header("Access-Control-Allow-Headers", "Content-Type, Authorization, X-Requested-With");
+    res.header("Access-Control-Allow-Methods", "PUT,POST,GET,DELETE,OPTIONS");
+    res.header("Access-Control-Allow-Credentials", true); //可以带cookies
+    res.header("X-Powered-By", '3.2.1')
+    if (req.method == 'OPTIONS') {
+        res.send(200);
+    } else {
+        next();
+    }
 });
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

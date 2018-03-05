@@ -20,7 +20,7 @@ export default class Price extends React.Component{
     render(){
         return(
                <Common>
-                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >票价管理</Header>
+                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px',lineHeight:'32px' }} >票价管理</Header>
                     <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                         <Form onSubmit={this.handleSubmit}>
                             <FormItem

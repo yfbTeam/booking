@@ -8,5 +8,5 @@ var orderSchema = new mongoose.Schema({
 })
 
 var Role = mongoose.model("Role",orderSchema);
-
+new Role({_id:'5a9123efa43cec2690b0ad05',name: '管理员' });
 module.exports = Role;

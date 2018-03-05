@@ -57,7 +57,7 @@ export default class Users extends React.Component{
         return(
             <div>
                 <Common>
-                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px' }} >用户管理</Header>
+                    <Header style={{ background: '#fff', padding: 16,marginBottom:'16px',lineHeight:'32px' }} >用户管理</Header>
                     <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                         <Button type="primary" style={{marginBottom:"16px"}} onClick={this.showModal}>增加</Button>
                         <Table columns={this.state.columns} dataSource={this.state.list} pagination={this.state.pagination}/>

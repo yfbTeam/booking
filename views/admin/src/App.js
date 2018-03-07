@@ -19,7 +19,6 @@ class App extends Component {
           ReactDOM.render(<Login/>,document.getElementById('root'))
       }else{
           ReactDOM.unmountComponentAtNode(document.getElementById('root'))
-          window.initData = res.body
           ReactDOM.render(
               <Routes />,
               document.getElementById('root')
